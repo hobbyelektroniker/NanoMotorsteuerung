@@ -16,7 +16,7 @@ Das Set wurde speziell zur Steuerung von Stokys - Modellen zusammengestellt.
 Rechts oben kann unter **Code** mit **Download ZIP** das ganze Repository als ZIP-Datei heruntergeladen werden.
 <br>
 <br>
-## Herunterladen / anzeigen der Dokumentantion
+## Herunterladen / anzeigen des Handbuchs
 Das Dokument **NanoMotorsteuerung.pdf** enthält die Anleitung zur Verwendung und Programmierung des Moduls.
 <br>
 <br>
