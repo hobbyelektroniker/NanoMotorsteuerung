@@ -4,7 +4,7 @@ Die Nano Motorsteuerung erlaubt die Ansteuerung von 2 Gleichstrommotoren durch e
 Das Set wurde speziell zur Steuerung von Stokys - Modellen zusammengestellt.  
 
 <p align="center">
-  <img src="img/Steuerung.JPG" width=45% title="Die Steuerungt">
+  <img src="img/Steuerung.jpg" width=45% title="Die Steuerungt">
   <img src="img/Zahnrad.jpeg" width=45% alt="Beispiel eines Modells">
 </p>
 <br>
