@@ -17,6 +17,7 @@ Das Set wurde speziell zur Steuerung von Stokys - Modellen zusammengestellt.
 Diese Steuerung erfordert grundlegende Arduino - Kenntnisse. Falls diese fehlen, steht dir mein Arduino - Kurs auf Youtube kostenlos zur Verfügung.
 
 https://www.youtube.com/playlist?list=PL4dxj1rGc3b29m2h3-0wUUTNVDoM5MmnJ
+https://github.com/hobbyelektroniker/Arduino_Einstieg
  
 <br>
 
