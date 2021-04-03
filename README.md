@@ -1,12 +1,18 @@
 # Nano Motorsteuerung
 
 Die Nano Motorsteuerung erlaubt die Ansteuerung von 2 Gleichstrommotoren durch einen Microcontroller. Der Microcontroller ist im Set enthalten und kompatibel zu einem Arduino Nano.
+Im Set befindet sich auch eine Halterung, die den bequemen Einbau der Steuerung in ein Stokys - Modell erlaubt. Diese Halterung kann selbst nachgedruckt werden, das .stl - File ist im Verzeichnis stl zu finden.
+
 Das Set wurde speziell zur Steuerung von Stokys - Modellen zusammengestellt.  
 
-<p align="center">
-  <img src="img/Steuerung.jpg" width=45% title="Die Steuerungt">
-  <img src="img/Zahnrad.jpeg" width=45% alt="Beispiel eines Modells">
-</p>
+<p align="left">
+  <img src="img/SteuerungHalterung.jpeg" width=46% title="Mit Halterung">
+  <img src="img/SteuerungElektronik.jpg" width=44% title="Die Steuerung">
+  <br>
+  <img src="img/Cabrio3.jpeg" width=51% alt="Beispiel eines Modells">
+  <img src="img/Zahnrad.jpeg" width=39% alt="Beispiel eines Modells">
+
+ </p>
 <br>
 <br>
 
@@ -21,4 +27,8 @@ Das Dokument **NanoMotorsteuerung.pdf** enthält die Anleitung zur Verwendung un
 <br>
 <br>
 ## Programmbeispiele
-In den Beispielen sind die in der Dokumentation besprochenen Programme als Quelltext zu finden. 
+Im Verzeichnis *Beispiele* sind die in der Dokumentation besprochenen Programme als Quelltext zu finden.
+<br>
+<br>
+## 3D Druckteile
+Die stl - File zu den gedruckten 3D - Teilen sind im Verzeichnis *stl* zu finden.  
