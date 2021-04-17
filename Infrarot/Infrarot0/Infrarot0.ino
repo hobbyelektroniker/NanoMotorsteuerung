@@ -1,5 +1,5 @@
 /*
- * Infrarot Fernsteuerung für Nano Motorkontroller
+ * Infrarot Fernsteuerung für Nano Motorsteuerung
  * Mode 0: Indirekte Signalisierung über Callback
  * 
  * Version 1.00, 09.04.2021

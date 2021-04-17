@@ -1,11 +1,11 @@
 /*
-  Beispiel 2, Nano Motortreiber
+  Beispiel 2, Nano Motorsteuerung
   Langsam anfahren und anhalten 
   
-  Version 1.00, 17.03.2021
+  Version 1.20, 06.04.2021
 
   Der Hobbyelektroniker, AMrobot
-  https://github.com/hobbyelektroniker/NanoMotortreiber
+  https://github.com/hobbyelektroniker/NanoMotorsteuerung
   https://community.hobbyelektroniker.ch
   https://www.youtube.com/c/HobbyelektronikerCh
   Der Code kann mit Quellenangabe frei verwendet werden.
@@ -28,12 +28,12 @@ void demo() {
   // auf volle Geschwindigkeit (255) beschleunigen
   motor.speedUp(255);
 
-  delay(3000); // Geschwindigkeit halten
+  delay(1200); // Geschwindigkeit halten
   
   // auf halbe Geschwindigkeit reduzieren
   motor.slowDown(127);
 
-  delay(3000); // Geschwindigkeit halten
+  delay(1200); // Geschwindigkeit halten
 
   // ganz langsam anhalten
   motor.setAcceleration(1); // Standard wäre 5

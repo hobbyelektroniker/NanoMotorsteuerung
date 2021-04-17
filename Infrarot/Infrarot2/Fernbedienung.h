@@ -1,7 +1,7 @@
 /* Klasse für Infrarotempfänger
  * Speziell für 'Nano Motorsteuerung'
  * 
- * Version 1.00, 09.04.2021
+ * Version 1.00, 11.04.2021
  *
  * Der Hobbyelektroniker, AMrobot
  * https://github.com/hobbyelektroniker/NanoMotorsteuerung
@@ -127,8 +127,16 @@ void IREmpfaenger::refresh() {
 }
 
 uint8_t IREmpfaenger::getCmd() {
-  if (millis() - _oldMillis > 200) _code = IRCMD_NONE;
-  return _code;
+  if (_mode == 1 || _mode == 2) {
+    if (millis() - _oldMillis > 200) _code = IRCMD_NONE;
+    return _code;
+  } else if (_mode == 3) {
+    int code = _code;
+    if (millis() - _oldMillis > 200) _code = IRCMD_NONE;
+    return code;
+  } else {
+    return _code;
+  } 
 }
 
 // Wird automatisch vom aufgerufen, wenn ein Code empfangen wird

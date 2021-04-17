@@ -1,11 +1,11 @@
 /*
-  Beispiel 3, Nano Motortreiber
+  Beispiel 3, Nano Motorsteuerung
   Endschalter verwenden
   
-  Version 1.00, 17.03.2021
+  Version 1.20, 06.04.2021
 
   Der Hobbyelektroniker, AMrobot
-  https://github.com/hobbyelektroniker/NanoMotortreiber
+  https://github.com/hobbyelektroniker/NanoMotorsteuerung
   https://community.hobbyelektroniker.ch
   https://www.youtube.com/c/HobbyelektronikerCh
   Der Code kann mit Quellenangabe frei verwendet werden.

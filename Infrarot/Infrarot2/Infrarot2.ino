@@ -1,5 +1,5 @@
 /*
- * Infrarot Fernsteuerung für Nano Motorkontroller
+ * Infrarot Fernsteuerung für Nano Motorsteuerung
  * Mode 2: Direkte Abfrage mit getCmd()
  * 
  * Version 1.00, 09.04.2021

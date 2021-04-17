@@ -4,6 +4,7 @@
   Version 1.0, 18.03.2021
   
   Der Hobbyelektroniker, AMrobot
+  https://github.com/hobbyelektroniker/NanoMotorsteuerung  
   https://community.hobbyelektroniker.ch
   https://www.youtube.com/c/HobbyelektronikerCh
   Der Code kann mit Quellenangabe frei verwendet werden.

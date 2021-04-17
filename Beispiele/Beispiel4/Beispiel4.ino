@@ -1,11 +1,18 @@
 /*
   Beispiel 4, Nano Motortreiber
- langsam abfahren und ankommen
+  Mit Endschalter
+  Langsam abfahren
+  Beim Ankommen wird verlangsamt
   
-  Version 1.00, 17.03.2021
+  Da kein Sensor dafür zur Verfügung steht, wird
+  die Verlangsamung zeitgesteuert eingeleitet
+  
+  Der Endschlater führt zum definitiven stopp
+  
+  Version 1.20, 06.04.2021
 
   Der Hobbyelektroniker, AMrobot
-  https://github.com/hobbyelektroniker/NanoMotortreiber
+  https://github.com/hobbyelektroniker/NanoMotorsteuerung
   https://community.hobbyelektroniker.ch
   https://www.youtube.com/c/HobbyelektronikerCh
   Der Code kann mit Quellenangabe frei verwendet werden.
