@@ -2,12 +2,12 @@
   Beispiel 4, Nano Motortreiber
   Mit Endschalter
   Langsam abfahren
-  Beim Ankommen wird verlangsamt
+  Beim Ankommen wird verlangsamt 
   
   Da kein Sensor dafür zur Verfügung steht, wird
   die Verlangsamung zeitgesteuert eingeleitet
   
-  Der Endschlater führt zum definitiven stopp
+  Der Endschalter führt zum definitiven Stopp
   
   Version 1.20, 06.04.2021
 

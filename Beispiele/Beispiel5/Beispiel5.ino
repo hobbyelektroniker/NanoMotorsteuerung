@@ -2,11 +2,13 @@
  * Beispiel 5, Nano Motorsteuerung
  * Mit Fernbedienung
  * Ohne Endschalter
- * Langsam abfahren und anhalten
+ * Langsam abfahren (links / rechts) und anhalten (OK)
+ * Direkt fahren (auf, ab) und anhalten bei Loslassen
+ * Notstopp mit 0
  *
  * Das Anfahren und Anhalten erfolgt über die Fernbedienung.
  * 
- * Version 1.00, 11.04.2021
+ * Version 1.00, 18.04.2021
  *
  *
  * Der Hobbyelektroniker, AMrobot
@@ -69,42 +71,46 @@ unsigned long startZeit;
 // Callback - Funktion für Fernbedienung
 void newCmd(int cmd) {
   switch (cmd) {
-    case IRCMD_LEFT:
+    case IRCMD_LEFT:  // Normal nach link abfahren
       Serial.println(String(zustand)+": "+"LEFT");
       if (zustand == stehend) abfahrt(true); // nach vorne losfahren
       break;
-    case IRCMD_RIGHT:
+    case IRCMD_RIGHT: // Normal nach rechts abfahren
       Serial.println(String(zustand)+": "+"RIGHT");
       if (zustand == stehend) abfahrt(false); // nach hinten losfahren
       break;
-    case IRCMD_OK:
-      Serial.println(String(zustand)+": "+"OK");
+    case IRCMD_OK: // Anhalten
+      Serial.println(String(zustand)+": "+"ANHALTEN");
       if (zustand == handbetrieb) {
+        Serial.println(String(zustand)+": "+"NOTSTOPP");
         motor.stop();
         zustand = stehend;
+        return;
+      } else {
+        if (zustand != stehend && zustand != ankommend) ankunft();  // ankommen
       }
-      if (zustand != stehend && zustand != ankommend) ankunft();  // ankommen
       break;
-    case IRCMD_0:
-      Serial.println(String(zustand)+": "+"0");
-      motor.stop(); // Notstopp
+    case IRCMD_0: // Notstopp
+      Serial.println(String(zustand)+": "+"NOTSTOPP");
+      motor.stop();
       zustand = stehend;
-      break;  
-    case IRCMD_UP: // vorwärts fahren
-      Serial.println(String(zustand)+": "+"UP");
+      break;
+    case IRCMD_UP: // Direkt nach links
+      Serial.println(String(zustand)+": "+"DIREKT LINKS");
       zustand = handbetrieb;
       motor.setForward(true);
       motor.setSpeed(255);
       break;
-    case IRCMD_DOWN: // rückwärts fahren
-      Serial.println(String(zustand)+": "+"DOWN");
+    case IRCMD_DOWN: // Direkt nach rechts
+      Serial.println(String(zustand)+": "+"DIREKT RECHTS");
       zustand = handbetrieb;
       motor.setForward(false);
       motor.setSpeed(255);
       break;
     case IRCMD_NONE: // Taste losgelassen
-      Serial.println(String(zustand)+": "+"NONE");
+      Serial.println(String(zustand)+": "+"TASTE LOSGELASSEN");
       if (zustand == handbetrieb) { 
+        Serial.println(String(zustand)+": "+"DIREKT STOPPEN");
         zustand = stehend;
         motor.stop();
       }
@@ -118,7 +124,8 @@ void setup() {
   motor.begin(); 
   zustand = stehend;
   // Fernbedienung vorbereiten
-  empfaenger.begin(1);
+  empfaenger.begin(2);
+  empfaenger.setNoRepeat();
   empfaenger.setCallback(newCmd);
 }
 

@@ -1,7 +1,7 @@
 /* Klasse für Infrarotempfänger
  * Speziell für 'Nano Motorsteuerung'
  * 
- * Version 1.00, 11.04.2021
+ * Version 2.00, 18.04.2021
  *
  * Der Hobbyelektroniker, AMrobot
  * https://github.com/hobbyelektroniker/NanoMotorsteuerung
@@ -69,17 +69,18 @@ typedef void (*CallBackFunction) (int);
 class IREmpfaenger {
   public:
     void begin(uint8_t mode = 0, uint8_t pin = 2);
+    void setNoRepeat(bool value = true);
+    void setMode(uint8_t mode);
     void refresh();
     void setCallback(CallBackFunction newCmd);
     uint8_t getCmd();
-    void newCode(uint8_t aCode, bool isRepeat);
-  private:
-    void newCmd(int cmd);
 
+    void newCmd(uint8_t cmd);
+  private:
     uint8_t _pin;
     uint8_t _mode;
-    uint8_t _code, _oldCode, _oldCmd;
-    bool _repeat;
+    bool _noRepeat;
+    uint8_t _cmd, _oldCmd;
     unsigned long _oldMillis;
     CallBackFunction _callback; 
 };
@@ -89,7 +90,7 @@ IREmpfaenger empfaenger;
 
 // Wird automatisch aufgerufen, wenn eine Taste gedrückt wird
 void handleReceivedTinyIRData(uint16_t aAddress, uint8_t aCommand, bool isRepeat) {
-  empfaenger.newCode(aCommand, isRepeat);
+  empfaenger.newCmd(aCommand);
 }
 
 #include "SimpleIRReceiver.h"
@@ -100,59 +101,84 @@ void handleReceivedTinyIRData(uint16_t aAddress, uint8_t aCommand, bool isRepeat
 void IREmpfaenger::begin(uint8_t mode, uint8_t pin) {
   _mode = mode;
   _pin = pin;
-  _code = 0;
-  _oldCode = 0;
+  _cmd = 0;
   _oldCmd = 0;
-  _repeat = false;
+  _noRepeat = false;
   _oldMillis = millis();
   initPCIInterruptForTinyReceiver(_pin);
 }
 
-// Verarbeitet die Kommandos
+void IREmpfaenger::setNoRepeat(bool value = true) {
+  _noRepeat = value;
+}
+
+// Wird automatisch aufgerufen, wenn ein Kommando empfangen wird
+void IREmpfaenger::newCmd(uint8_t cmd) {
+  if (_mode == 0) {
+    _cmd = cmd;
+    return;
+  }
+  if (_mode == 1) {
+    if (_noRepeat) {
+      uint8_t newCmd = cmd;
+      if (newCmd != _oldCmd) {
+        _oldCmd = newCmd;
+        if (_callback) _callback(newCmd);      
+      }
+    } else {
+      if (_callback) _callback(cmd);      
+    }
+  }
+  if (_mode == 2) {
+    if (_noRepeat) {
+      uint8_t newCmd = cmd;
+      if (cmd != _oldCmd) {
+        _oldCmd = cmd;
+        if (_callback) _callback(cmd);      
+      }
+    } else {
+      if (_callback) _callback(cmd);      
+      _oldCmd = cmd;
+    }
+    _oldMillis = millis();
+  }
+}
+
+// Testet auf 'losgelassen'
 // Muss in kurzen Abständen aufgerufen werden.
-// Nicht abgerufene Kommandos gehen verloren
 // Wenn länger als 200 ms kein neues Komando mehr empfangen
 // wird, sendet die Klassen ein IRCMD_NONE
 void IREmpfaenger::refresh() {
   if (millis() - _oldMillis > 200) {
-    if (_oldCode) newCmd(IRCMD_NONE);
-    _code = IRCMD_NONE;
-    _oldCode = _code;
+    if (_oldCmd) newCmd(IRCMD_NONE);
     _oldMillis = millis();
-  } else {
-    if (_oldCode != _code) {
-      if (_code && _mode == 0) newCmd(_code);
-      _oldCode = _code;
-    }
   }
+  delay(1); 
 }
 
 uint8_t IREmpfaenger::getCmd() {
-  if (_mode == 1 || _mode == 2) {
-    if (millis() - _oldMillis > 200) _code = IRCMD_NONE;
-    return _code;
-  } else if (_mode == 3) {
-    int code = _code;
-    if (millis() - _oldMillis > 200) _code = IRCMD_NONE;
-    return code;
-  } else {
-    return _code;
-  } 
+  if (_mode != 0) return IRCMD_NONE;
+  uint8_t newCmd = _cmd;
+  if (newCmd) {
+    if (_noRepeat) {
+      if (_oldCmd != newCmd) {
+        _oldCmd = newCmd;
+      } else {
+        newCmd = 0;
+      }
+    } else {
+      _cmd = 0;
+    }
+  }
+  return newCmd;
 }
 
-// Wird automatisch vom aufgerufen, wenn ein Code empfangen wird
-void IREmpfaenger::newCode(uint8_t aCode, bool isRepeat) {
-  _oldMillis = millis();
-  _code = aCode;
-  _repeat = isRepeat;  
-  if (_mode == 1) newCmd(_code);
-}
-
-// Aufruf der Callback - Funktion
-void IREmpfaenger::newCmd(int cmd) {
-  if (!cmd || cmd != _oldCmd) {
-    _oldCmd = cmd;
-    if (_callback && _mode < 2) _callback(cmd);
+void IREmpfaenger::setMode(uint8_t mode) {
+  if (mode != _mode) {
+    _mode = mode;
+    _cmd = 0;
+    _oldCmd = 0;
+    _oldMillis = millis();
   }
 }
 
